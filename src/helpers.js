@@ -44,3 +44,25 @@ export const drawActors = actors => {
     })
   );
 };
+
+export const trackKeys = keys => {
+  const down = {};
+  const track = e => {
+    if (keys.includes(e.key)) {
+      down[e.key] = e.type === "keydown";
+      e.preventDefault();
+    }
+  };
+  window.addEventListener("keydown", track);
+  window.addEventListener("keyup", track);
+  return down;
+};
+
+export const overlap = (actor1, actor2) => {
+  return (
+    actor1.pos.x + actor1.size.x > actor2.pos.x &&
+    actor1.pos.x < actor2.pos.x + actor2.size.x &&
+    actor1.pos.y + actor1.size.y > actor2.pos.y &&
+    actor1.pos.y < actor2.pos.y + actor2.size.y
+  );
+};
